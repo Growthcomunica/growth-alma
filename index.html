@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alma Colors — Vinhos em lata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --field:#F5CBC1;
+  --deep:#5B1D27;
+  --ink:#1C1426;
+  --paper:#FFFFFF;
+  --line:#E6E1EA;
+  --muted:#5D5566;
+  --brand:#4A1F7A;
+  --ok:#1D6B4F;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;font-optical-sizing:auto;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 28px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Barra de cupom */
+.promo{background:var(--brand);color:#fff;text-align:center;font-size:14px;padding:9px 16px}
+.promo b{letter-spacing:.06em}
+
+/* Lata recortada da foto 1024x1024 (lata ocupa x 372–652, y 160–896) */
+.can{position:relative;height:var(--h);width:calc(var(--h)*var(--wr,.3804));flex:none}
+.can img{position:absolute;max-width:none;width:calc(var(--h)*var(--iw,1.3913));height:auto;left:calc(var(--h)*var(--il,-.5054));top:calc(var(--h)*var(--it,-.2174))}
+/* foto com fundo branco: mescla com a cor de fundo */
+.can.mult{isolation:isolate;overflow:hidden;background:var(--c);border-radius:6% 6% 9% 9%/2% 2% 3% 3%}
+.can.mult img{mix-blend-mode:multiply}
+.can.fail img{display:none}
+.can.fail::after{content:"";position:absolute;inset:0;border-radius:12% 12% 16% 16%/5% 5% 6% 6%;background:var(--c,#ddd)}
+
+/* HERO */
+.hero{background:var(--field);color:var(--deep);transition:background-color .7s var(--ease),color .7s var(--ease);position:relative;overflow:hidden}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px 28px;flex-wrap:wrap;padding-top:18px;padding-bottom:18px;position:relative;z-index:3}
+.logo{display:flex;align-items:center;text-decoration:none;min-height:44px}
+.logo img{height:46px;width:auto}
+.logo span{font-weight:800;font-size:30px;letter-spacing:-.04em}
+.nav{display:flex;flex-wrap:wrap;gap:4px 6px}
+.nav a,.tools a{white-space:nowrap;text-decoration:none;font-weight:600;font-size:15px;padding:10px 14px;border-radius:999px;min-height:44px;display:inline-flex;align-items:center;gap:8px}
+.nav a:hover,.tools a:hover{background:color-mix(in srgb,var(--deep) 10%,transparent)}
+.tools{display:flex;gap:4px;align-items:center}
+.tools .cart{background:var(--deep);color:var(--field)}
+.tools .cart:hover{background:var(--deep)}
+.tools svg{width:20px;height:20px}
+
+.stage{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:32px;min-height:clamp(560px,calc(100svh - 230px),820px);padding-top:8px;padding-bottom:40px}
+.word{position:absolute;left:0;right:0;top:36%;transform:translateY(-50%);text-align:center;font-weight:800;font-variation-settings:"wdth" 75;font-size:var(--ws,25vw);line-height:.78;letter-spacing:-.045em;white-space:nowrap;pointer-events:none;z-index:1;user-select:none}
+.stage .can{--h:clamp(380px,60vh,620px);z-index:2;justify-self:center;filter:drop-shadow(0 38px 36px color-mix(in srgb,var(--deep) 30%,transparent))}
+.buy,.specs{position:relative;z-index:2;align-self:end}
+.tagline{margin:0 0 14px;font-size:15px;font-weight:600}
+.buy h1{margin:0;font-size:clamp(30px,3.2vw,44px);line-height:1.05;letter-spacing:-.025em;font-weight:700}
+.buy .desc{margin:6px 0 22px;font-size:17px}
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.price strong{font-size:40px;letter-spacing:-.03em;font-weight:700;line-height:1}
+.price span{font-size:15px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;border:2px solid var(--deep);cursor:pointer;transition:transform .15s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn.solid{background:var(--deep);color:var(--field)}
+.btn.ghost{background:transparent;color:var(--deep)}
+.btn[aria-disabled="true"]{opacity:.55}
+.specs dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:10px 20px;justify-self:end;max-width:340px;margin-left:auto;font-size:15px}
+.specs dt{font-weight:500;opacity:.8}
+.specs dd{margin:0;font-weight:700}
+.soldout[hidden]{display:none}
+.soldout{display:inline-block;margin-bottom:14px;background:var(--deep);color:var(--field);font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px}
+
+/* Trilho de escolha */
+.rail{position:relative;z-index:3;display:flex;gap:10px;padding-bottom:28px;overflow-x:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;align-items:center;gap:12px;padding:6px 18px 6px 6px;border-radius:999px;border:2px solid transparent;background:color-mix(in srgb,#fff 55%,transparent);cursor:pointer;min-height:60px;transition:background-color .3s,border-color .3s}
+.chip:hover{background:color-mix(in srgb,#fff 80%,transparent)}
+.chip[aria-pressed="true"]{border-color:var(--deep);background:#fff}
+.dot{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dot .can{--h:44px}
+.chip b{font-size:15px;font-weight:700;color:var(--ink)}
+
+/* Seções */
+section{padding:96px 0}
+.h2{margin:0 0 10px;font-size:clamp(34px,4.4vw,60px);line-height:1;letter-spacing:-.035em;font-weight:700;font-variation-settings:"wdth" 85}
+.lede{margin:0;max-width:56ch;color:var(--muted);font-size:18px}
+
+/* Pack builder */
+.packs .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center;margin-top:48px}
+.qty{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:18px;padding:16px 14px;text-align:left;cursor:pointer;min-height:96px;display:flex;flex-direction:column;gap:2px;transition:border-color .2s}
+.opt:hover{border-color:color-mix(in srgb,var(--deep) 45%,var(--line))}
+.opt[aria-checked="true"]{border-color:var(--deep);background:color-mix(in srgb,var(--field) 45%,#fff)}
+.opt .n{font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.opt .l{font-size:14px;color:var(--muted)}
+.opt .off{font-size:14px;font-weight:700;color:var(--ok)}
+.sum{margin-top:26px;border-top:1px solid var(--line);padding-top:22px;display:flex;flex-direction:column;gap:6px}
+.sum .big{font-size:44px;font-weight:700;letter-spacing:-.035em;line-height:1}
+.sum s{color:var(--muted);font-size:18px}
+.sum .save{color:var(--ok);font-weight:700}
+.sum .inst{color:var(--muted);font-size:15px}
+.sum .btn{align-self:flex-start;margin-top:14px;border-color:var(--deep);background:var(--deep);color:var(--field)}
+.box{--h:calc(var(--hb,220px)*var(--k,1));background:var(--field);border-radius:28px;min-height:460px;padding:48px 32px 56px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;transition:background-color .7s var(--ease)}
+.crow{display:flex;justify-content:center;transform:translateX(var(--tx,0px)) scale(var(--sc,1));transform-origin:50% 100%}
+.crow+.crow{margin-top:calc(var(--h)*-.7)}
+.crow .can+.can{margin-left:calc(var(--h)*-.04)}
+.crow .can{filter:drop-shadow(0 16px 14px rgb(0 0 0 / .16))}
+.crow.back .can{filter:brightness(.94) drop-shadow(0 10px 10px rgb(0 0 0 / .12))}
+
+/* Ficha */
+.ficha{background:#FAF9FB;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:40px 48px;margin-top:48px}
+.note h3{margin:0 0 8px;font-size:15px;font-weight:600;color:var(--muted)}
+.note p{margin:0;font-size:22px;line-height:1.35;letter-spacing:-.01em;font-weight:500;max-width:28ch}
+.swatchline{display:flex;align-items:center;gap:12px;margin-bottom:22px;font-weight:600}
+.swatchline i{width:22px;height:22px;border-radius:50%;background:var(--field);border:1px solid color-mix(in srgb,var(--deep) 25%,transparent);transition:background-color .7s}
+
+/* Cartela: a linha */
+.strip{display:flex;height:620px;margin-top:48px;border-radius:28px;overflow:hidden}
+.col{flex:1 1 0;min-width:0;position:relative;text-decoration:none;color:var(--d);background:var(--f);display:flex;flex-direction:column;justify-content:space-between;padding:26px 22px;transition:flex-grow .5s var(--ease)}
+.col:hover,.col:focus-visible{flex-grow:1.7}
+.col:focus-visible{outline-offset:-6px}
+.col .can{--h:330px;align-self:center;margin-top:24px;filter:drop-shadow(0 24px 22px rgb(0 0 0 / .16))}
+.col h3{margin:0;font-size:26px;line-height:1.05;letter-spacing:-.025em;font-weight:700}
+.col p{margin:4px 0 0;font-size:15px}
+.col .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-top:14px;font-weight:700}
+.col .tag{font-size:13px;font-weight:700;border:1.5px solid currentColor;border-radius:999px;padding:3px 10px;white-space:nowrap}
+
+/* Packs mistos */
+.mix{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:48px}
+.mixcard{display:grid;grid-template-columns:1fr 1fr;border-radius:28px;overflow:hidden;text-decoration:none;min-height:360px;border:1px solid var(--line)}
+.mixcard .pair{grid-column:1/-1;grid-row:1;display:flex;justify-content:center;align-items:flex-end;gap:0;padding-top:34px}
+.mixcard .pair .can{--h:230px}
+.mixcard .pair .can+.can{margin-left:-14px}
+.mixcard .a,.mixcard .b{grid-row:1;display:block}
+.mixcard .a{grid-column:1}
+.mixcard .b{grid-column:2}
+.mixcard .info{grid-column:1/-1;background:#fff;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.mixcard h3{margin:0;font-size:22px;letter-spacing:-.02em}
+.mixcard .p{text-align:right}
+.mixcard .p s{color:var(--muted);font-size:14px;display:block}
+.mixcard .p b{font-size:24px;letter-spacing:-.02em}
+
+/* Tinto + Onde */
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.panel{border-radius:28px;padding:44px;display:flex;flex-direction:column;gap:14px;min-height:340px}
+.tinto{background:#5A1424;color:#FBEDEF}
+.tinto .btn{border-color:#FBEDEF;color:#FBEDEF}
+.tinto .btn.solid{background:#FBEDEF;color:#5A1424}
+.onde{background:#F1EEF5;color:var(--ink)}
+.panel h3{margin:0;font-size:clamp(30px,3vw,42px);line-height:1.02;letter-spacing:-.03em;font-variation-settings:"wdth" 85}
+.panel p{margin:0;max-width:44ch}
+.nums{display:flex;gap:40px;margin:6px 0}
+.nums b{display:block;font-size:72px;line-height:.9;letter-spacing:-.05em;font-variation-settings:"wdth" 80}
+.panel .ctas{margin-top:auto}
+.onde .btn{border-color:var(--ink);color:var(--ink)}
+.onde .btn.solid{background:var(--ink);color:#fff}
+
+/* Rodapé */
+footer{background:var(--ink);color:#DCD5E3;padding:64px 0 28px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:32px}
+footer h4{margin:0 0 12px;color:#fff;font-size:15px}
+footer a{text-decoration:none;display:block;padding:4px 0}
+footer a:hover{color:#fff}
+.legal{border-top:1px solid #3A2F45;margin-top:44px;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
+.legal b{color:#fff}
+
+/* Movimento: uma entrada orquestrada + resposta à escolha */
+@keyframes rise{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wordIn{from{letter-spacing:.04em;opacity:0}to{opacity:1}}
+@keyframes swap{from{transform:translateY(24px) rotate(-3deg);opacity:0}to{transform:none;opacity:1}}
+.load .stage .can{animation:rise .9s var(--ease) both .1s}
+.word{transition:color .7s var(--ease)}
+.load .word{animation:wordIn 1.1s var(--ease) both}
+.stage .can.swap{animation:swap .55s var(--ease) both}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* Responsivo */
+@media (max-width:980px){
+  .stage{grid-template-columns:1fr;justify-items:start;gap:24px;padding-top:120px}
+  .word{top:70px;transform:none;font-size:calc(var(--ws,25vw)*1.25)}
+  .stage .can{--h:min(64vh,420px);order:-1}
+  .specs dl{margin-left:0}
+  .packs .grid{grid-template-columns:1fr}
+  .strip{height:auto;overflow-x:auto;scroll-snap-type:x mandatory}
+  .col{flex:0 0 72%;min-height:540px;scroll-snap-align:start}
+  .col:hover,.col:focus-visible{flex-grow:0}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px}
+  section{padding:72px 0}
+  .nav{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}
+  .tools .cart .t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .logo img{height:38px}
+  .qty{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .box{min-height:320px;padding:24px}
+  .box{--k:.68}
+  .panel{padding:30px}
+  .nums b{font-size:56px}
+}
+</style>
+</head>
+<body class="load">
+
+<div class="promo">Primeira compra? Use o cupom <b>BEMVINDO</b> e ganhe 5% off.</div>
+
+<header class="hero" id="topo">
+  <div class="wrap top">
+    <a class="logo" href="https://www.almacolors.com.br/" aria-label="Alma Colors, página inicial">
+      <img src="https://d1a9qnv764bsoo.cloudfront.net/stores/004/537/097/themes/common/logo-1759106710-1712595691-c2bc66e31b6051bbf7fd44835c14147f1712595691-480-0.webp" alt="Alma Colors" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'alma colors'}))">
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="#linha">A linha</a>
+      <a href="#packs">Monte seu pack</a>
+      <a href="#mistos">Packs mistos</a>
+      <a href="#onde">Onde encontrar</a>
+    </nav>
+    <div class="tools">
+      <a href="https://www.almacolors.com.br/search/" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a>
+      <a href="https://www.almacolors.com.br/account/login/" aria-label="Minha conta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></a>
+      <a class="cart" href="https://www.almacolors.com.br/comprar/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="t">Carrinho</span></a>
+    </div>
+  </div>
+
+  <div class="wrap stage">
+    <div class="word" id="word" aria-hidden="true">Tinto</div>
+    <div class="buy">
+      <span class="soldout" id="soldout" hidden>Esgotado no momento</span>
+      <h1 id="name">Rosé Merlot</h1>
+      <p class="desc" id="desc">Vinho fino rosé seco</p>
+      <div class="price"><strong id="price">R$ 27,00</strong><span>a lata de 269 ml, no Pix ou cartão</span></div>
+      <div class="ctas">
+        <a class="btn solid" id="buy" href="#">Comprar Rosé Merlot</a>
+        <a class="btn ghost" href="#packs">Montar um pack</a>
+      </div>
+    </div>
+    <div class="can" id="heroCan"><img id="heroImg" alt="" width="1024" height="1024"></div>
+    <div class="specs"><dl id="specs"></dl></div>
+  </div>
+
+  <div class="wrap rail" id="rail" role="group" aria-label="Escolha o vinho"></div>
+</header>
+
+<main>
+  <section class="packs" id="packs">
+    <div class="wrap">
+      <h2 class="h2">Leve mais, pague menos.</h2>
+      <p class="lede">Escolha quantas latas de <b id="packName">Rosé Merlot</b> você quer. O desconto já vem no preço do pack.</p>
+      <div class="grid">
+        <div>
+          <div class="qty" id="qty" role="radiogroup" aria-label="Quantidade de latas"></div>
+          <div class="sum" aria-live="polite">
+            <span id="sumLabel">6 latas de Rosé Merlot</span>
+            <div><span class="big" id="sumPrice">R$ 150,66</span> <s id="sumFrom">R$ 162,00</s></div>
+            <span class="save" id="sumSave">Você economiza R$ 11,34</span>
+            <span class="inst" id="sumInst">ou 3x de R$ 50,22 sem juros</span>
+            <a class="btn" id="sumBtn" href="#">Comprar pack com 6</a>
+          </div>
+        </div>
+        <div class="box" id="box" role="img" aria-label="Latas do pack"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ficha" id="ficha">
+    <div class="wrap">
+      <div class="swatchline"><i></i><span id="fichaName">Rosé Merlot</span></div>
+      <h2 class="h2">Como ele é.</h2>
+      <div class="notes" id="notes"></div>
+    </div>
+  </section>
+
+  <section id="linha">
+    <div class="wrap">
+      <h2 class="h2">Seis cores, uma para cada momento.</h2>
+      <p class="lede">Vinhos e espumantes da Serra Gaúcha em lata de 269 ml, e uma versão sem álcool.</p>
+      <div class="strip" id="strip"></div>
+    </div>
+  </section>
+
+  <section id="mistos" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2">Packs mistos.</h2>
+      <p class="lede">Não quer escolher uma cor só? Leve duas.</p>
+      <div class="mix" id="mix"></div>
+    </div>
+  </section>
+
+  <section id="onde" style="padding-top:0">
+    <div class="wrap duo">
+      <div class="panel tinto">
+        <h3>Novo na linha: Alma Colors Tinto.</h3>
+        <p>60% Merlot e 40% Cabernet Sauvignon da safra 2025 da Serra Gaúcha, na lata de 269 ml. Já disponível na loja, avulso ou em packs.</p>
+        <div class="ctas"><a class="btn solid" href="https://www.almacolors.com.br/produtos/vinho-rose-merlot1/">Comprar o Tinto</a><a class="btn" href="https://www.almacolors.com.br/produtos/espumante-brut-pack-com-06-unidades1/">Pack com 6 latas</a></div>
+      </div>
+      <div class="panel onde">
+        <h3>Também na prateleira perto de você.</h3>
+        <div class="nums"><span><b>48</b>pontos de venda</span><span><b>22</b>cidades</span></div>
+        <p>Veja a lista completa de pontos de venda e abra o endereço mais próximo direto no mapa.</p>
+        <div class="ctas"><a class="btn solid" href="onde-encontrar.html">Ver onde encontrar</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Alma Colors</h4>
+        <p style="margin:0;max-width:30ch">Vinhos em lata. A cor da sua melhor escolha.</p>
+      </div>
+      <nav aria-label="Produtos">
+        <h4>Produtos</h4>
+        <div id="flinks"></div>
+      </nav>
+      <nav aria-label="Atendimento">
+        <h4>Atendimento</h4>
+        <a href="https://wa.me/5519997841444">WhatsApp (19) 99784-1444</a>
+        <a href="https://www.almacolors.com.br/account/login/">Minha conta</a>
+        <a href="https://www.almacolors.com.br/comprar/">Carrinho</a>
+      </nav>
+      <div>
+        <h4>Pagamento</h4>
+        <p style="margin:0">Pix ou cartão de crédito, em site seguro.</p>
+        <h4 style="margin-top:20px">Instagram</h4>
+        <a href="https://www.instagram.com/almacolorsbr/">@almacolorsbr</a>
+      </div>
+    </div>
+    <div class="legal">
+      <b>Beba com moderação. Venda proibida para menores de 18 anos.</b>
+      <span>Alma Colors</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const STORE='https://www.almacolors.com.br/produtos/';
+  const IMG='https://acdn-us.mitiendanube.com/stores/004/537/097/products/';
+  const lata=['Lata','269 ml'];
+  const PACKS=[
+    {n:1},
+    {n:4,price:102.60,from:108,pct:5,inst:'2x de R$ 51,30'},
+    {n:6,price:150.66,from:162,pct:7,inst:'3x de R$ 50,22'},
+    {n:12,price:291.60,from:324,pct:10,inst:'4x de R$ 72,90'}
+  ];
+  const W={
+    tinto:{name:'Alma Colors Tinto',word:'Tinto',ws:'23vw',desc:'Vinho fino tinto, Merlot e Cabernet Sauvignon',field:'#E5C3D5',deep:'#4A0F2A',img:'eaaa49fe70da36ace83bcf5099c1fee4-f3f56baf8b8c677e9117860242751729',crop:[366,122,654,906],blend:true,slug:'vinho-rose-merlot1',price:27,
+      packs:{4:'alma-colors-zero-pack-com-04-unidades1',6:'espumante-brut-pack-com-06-unidades1',12:'espumante-moscatel-pack-com-12-unidades1'},
+      specs:[['Uvas','60% Merlot, 40% Cabernet Sauvignon'],['Graduação','12,5%'],['Safra','2025'],['Origem','Serra Gaúcha, RS'],lata],
+      notes:[['Aroma','Cereja, ameixa vermelha e framboesa, com notas herbáceas e um toque de violeta.'],['Na boca','Boa acidez e taninos macios. Jovem e fresco.'],['Harmoniza com','Queijos médios, hambúrguer, massas à bolonhesa e tábuas de frios.']]},
+    rose:{name:'Rosé Merlot',word:'Rosé',ws:'22vw',desc:'Vinho fino rosé seco',field:'#F5CBC1',deep:'#5B1D27',img:'alma_lata_rose-31b093589e6a05d5e317725532768412',slug:'vinho-rose-merlot',price:27,
+      specs:[['Uva','100% Merlot'],['Graduação','10,5%'],['Servir a','8 a 10 °C'],['Origem','Serra Gaúcha, RS'],lata],
+      notes:[['Visual','Rosa claro.'],['Aroma','Flores e frutas tropicais.'],['Na boca','Acidez equilibrada, redondeza e frescor.'],['Harmoniza com','Frutos do mar, carnes brancas e entradas leves.']]},
+    branco:{name:'Branco Chardonnay',word:'Chardonnay',chip:'Branco',ws:'12.5vw',desc:'Vinho fino branco',field:'#F1E9BF',deep:'#433808',img:'alma_lata_branco-20cb90427b824072aa17725583609934',slug:'vinho-branco-chardonnay',price:27,soldOut:true,
+      specs:[['Uva','100% Chardonnay'],['Graduação','11,5%'],['Safra','2025'],['Origem','Serra Gaúcha, RS'],lata],
+      notes:[['Uva','100% Chardonnay, safra 2025.'],['Harmoniza com','Saladas, peixes, frutos do mar, canapés e massas de molho leve.'],['Também vai bem com','Risoto de legumes ou de proteína leve.']]},
+    brut:{name:'Espumante Brut',word:'Brut',ws:'23vw',desc:'Espumante natural brut',field:'#EDD7A0',deep:'#46320A',img:'alma_lata_brut-99fc62162821d5df9217725583250159',slug:'espumante-brut',price:27,
+      specs:[['Uvas','Chardonnay, Pinot Noir e Riesling Itálico'],['Graduação','12,5%'],['Servir a','4 a 6 °C'],['Método','Tanque'],lata],
+      notes:[['Visual','Amarelo palha com reflexos dourados.'],['Aroma','Frutas tropicais com notas florais.'],['Na boca','Acidez equilibrada, frescor e perlage persistente.'],['Harmoniza com','Aperitivos, peixes, massas, risotos e carnes brancas grelhadas.']]},
+    moscatel:{name:'Espumante Moscatel',word:'Moscatel',ws:'15vw',desc:'Espumante moscatel',field:'#DBE6B3',deep:'#323F0B',img:'lata_alma_moscatel-8bffd6abe6d819fdcf17725583415001',slug:'espumante-moscatel',price:27,
+      specs:[['Uva','100% Moscato Giallo'],['Graduação','7,5%'],['Servir a','4 a 6 °C'],['Método','Asti'],lata],
+      notes:[['Visual','Amarelo esverdeado.'],['Aroma','Adocicado, com notas florais e de mel.'],['Na boca','Suave e delicado, entre doçura e acidez.'],['Harmoniza com','Canapés, queijos azuis e leves, sobremesas.']]},
+    zero:{name:'Alma Colors Zero',word:'Zero',ws:'23vw',desc:'Bebida de uva gaseificada, sem álcool',field:'#BEE0E4',deep:'#0E3C44',img:'alma_lata_zero-4eeca1bc2a5c79d24117725583740698',slug:'alma-colors-zero',price:24,
+      specs:[['Álcool','0%'],['Energia','44 kcal em 100 ml'],['Base','Uva'],lata],
+      notes:[['O que é','Bebida de uva adoçada e gaseificada.'],['Álcool','Zero. Para brindar junto, sem álcool.'],['Energia','44 kcal a cada 100 ml.']]}
+  };
+  const ORDER=['tinto','rose','branco','brut','moscatel','zero'];
+  const MIX=[
+    {name:'Pack Espumantes',desc:'3 Brut e 3 Moscatel',a:'brut',b:'moscatel',slug:'pack-espumantes',price:150.66,from:162},
+    {name:'Pack Vinhos',desc:'3 Branco e 3 Rosé',a:'branco',b:'rose',slug:'pack-vinhos',price:150.66,from:162}
+  ];
+  const brl=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const src=k=>IMG+W[k].img+'-1024-1024.webp';
+  const $=id=>document.getElementById(id);
+  const cv=k=>{const c=W[k].crop||[372,160,652,896];const hh=c[3]-c[1];return `--wr:${((c[2]-c[0])/hh).toFixed(4)};--iw:${(1024/hh).toFixed(4)};--il:${(-c[0]/hh).toFixed(4)};--it:${(-c[1]/hh).toFixed(4)}`;};
+  const canHTML=(k,alt)=>`<div class="can${W[k].blend?' mult':''}" style="--c:${W[k].field};${cv(k)}"><img src="${src(k)}" alt="${alt||''}" width="1024" height="1024" onerror="this.parentNode.classList.add('fail')"></div>`;
+  const packUrl=(k,n)=>n===1?STORE+W[k].slug+'/':STORE+((W[k].packs&&W[k].packs[n])||W[k].slug+'-pack-com-'+String(n).padStart(2,'0')+'-unidades')+'/';
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  // Pré-carrega as latas
+  ORDER.forEach(k=>{const i=new Image();i.src=src(k);});
+
+  // Trilho
+  $('rail').innerHTML=ORDER.map(k=>`<button type="button" class="chip" data-k="${k}" aria-pressed="false"><span class="dot" style="background:${W[k].field}">${canHTML(k)}</span><b>${W[k].chip||W[k].word}</b></button>`).join('');
+
+  // Cartela
+  $('strip').innerHTML=ORDER.map(k=>{const w=W[k];const grad=(w.specs.find(s=>s[0]==='Graduação')||w.specs[0])[1];
+    return `<a class="col" href="${STORE+w.slug}/" style="--f:${w.field};--d:${w.deep}">
+      <div><h3>${w.name}</h3><p>${w.desc}</p></div>
+      ${canHTML(k,'Lata de '+w.name)}
+      <div class="row"><span>${w.soldOut?'Esgotado':brl(w.price)}</span><span class="tag">${k==='zero'?'0% álcool':grad}</span></div>
+    </a>`}).join('');
+
+  // Packs mistos
+  $('mix').innerHTML=MIX.map(m=>`<a class="mixcard" href="${STORE+m.slug}/">
+      <span class="a" style="background:${W[m.a].field}"></span><span class="b" style="background:${W[m.b].field}"></span>
+      <div class="pair">${canHTML(m.a)}${canHTML(m.b)}</div>
+      <div class="info"><div><h3>${m.name}</h3><span style="color:var(--muted)">${m.desc}</span></div>
+      <div class="p"><s>${brl(m.from)}</s><b>${brl(m.price)}</b></div></div>
+    </a>`).join('');
+
+  // Rodapé
+  $('flinks').innerHTML=ORDER.map(k=>`<a href="${STORE+W[k].slug}/">${W[k].name}</a>`).join('');
+
+  let cur='tinto', qty=6;
+
+  function renderPacks(){
+    const w=W[cur];
+    $('packName').textContent=w.name;
+    $('qty').innerHTML=PACKS.map(p=>{
+      const price=p.n===1?w.price:p.price;
+      return `<button type="button" class="opt" role="radio" aria-checked="${p.n===qty}" data-n="${p.n}">
+        <span class="n">${p.n}</span><span class="l">${p.n===1?'lata':'latas'}</span><span class="l">${brl(price)}</span>
+        <span class="off">${p.pct?p.pct+'% off':'avulsa'}</span></button>`}).join('');
+    const p=PACKS.find(x=>x.n===qty);
+    const price=p.n===1?w.price:p.price;
+    $('sumLabel').textContent=(p.n===1?'1 lata':p.n+' latas')+' de '+w.name;
+    $('sumPrice').textContent=brl(price);
+    $('sumFrom').textContent=p.from?brl(p.from):'';
+    $('sumSave').textContent=p.from?'Você economiza '+brl(p.from-price):'Pack de 4 latas já sai com 5% off';
+    $('sumInst').textContent=p.inst?'ou '+p.inst+' sem juros':'no Pix ou cartão de crédito';
+    const b=$('sumBtn');
+    if(w.soldOut){b.textContent='Esgotado, avise-me no produto';b.href=STORE+w.slug+'/';}
+    else{b.textContent=p.n===1?'Comprar 1 lata':'Comprar pack com '+p.n;b.href=packUrl(cur,p.n);}
+    const L={1:{rows:[1],h:300},4:{rows:[2,2],h:240},6:{rows:[3,3],h:220},12:{rows:[4,4,4],h:205}}[p.n];
+    const box=$('box'); box.style.setProperty('--hb',L.h+'px');
+    const R=L.rows.length;
+    box.innerHTML=L.rows.map((c,ri)=>{const sc=R>1?(0.8+0.2*ri/(R-1)):1;const tx=(R-1-ri)%2?'calc(var(--h)*.2)':'0px';
+      return `<div class="crow${ri<R-1?' back':''}" style="--sc:${sc.toFixed(3)};--tx:${tx}">${Array.from({length:c},()=>canHTML(cur)).join('')}</div>`;}).join('');
+    box.setAttribute('aria-label',(p.n===1?'1 lata':p.n+' latas')+' de '+w.name);
+  }
+
+  function select(k,opts){
+    const w=W[k]; if(!w) return;
+    const changed=k!==cur; cur=k;
+    const r=document.documentElement.style;
+    r.setProperty('--field',w.field); r.setProperty('--deep',w.deep);
+    const word=$('word'); word.textContent=w.word; word.style.setProperty('--ws',w.ws);
+    $('name').textContent=w.name; $('desc').textContent=w.desc;
+    $('price').textContent=brl(w.price);
+    $('soldout').hidden=!w.soldOut;
+    const buy=$('buy');
+    buy.textContent=w.soldOut?'Avise-me quando voltar':'Comprar '+w.name;
+    buy.href=STORE+w.slug+'/';
+    $('specs').innerHTML=w.specs.map(s=>`<dt>${esc(s[0])}</dt><dd>${esc(s[1])}</dd>`).join('');
+    const img=$('heroImg'); img.src=src(k); img.alt='Lata de '+w.name;
+    $('heroCan').className='can'+(w.blend?' mult':'');
+    $('heroCan').setAttribute('style','--c:'+w.field+';'+cv(k));
+    img.onerror=()=>$('heroCan').classList.add('fail');
+    if(changed&&!(opts&&opts.initial)){const c=$('heroCan');c.classList.remove('swap');void c.offsetWidth;c.classList.add('swap');}
+    document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.k===k));
+    $('fichaName').textContent=w.name;
+    $('notes').innerHTML=w.notes.map(n=>`<div class="note"><h3>${esc(n[0])}</h3><p>${esc(n[1])}</p></div>`).join('');
+    renderPacks();
+    if(!(opts&&opts.initial)) history.replaceState(null,'','#'+k);
+  }
+
+  $('rail').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c)select(c.dataset.k);});
+  $('rail').addEventListener('keydown',e=>{
+    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+    const i=ORDER.indexOf(cur)+(e.key==='ArrowRight'?1:-1);
+    const k=ORDER[(i+ORDER.length)%ORDER.length]; select(k);
+    document.querySelector('.chip[data-k="'+k+'"]').focus(); e.preventDefault();
+  });
+  $('qty').addEventListener('click',e=>{const o=e.target.closest('.opt');if(o){qty=+o.dataset.n;renderPacks();$('qty').querySelector('[data-n="'+qty+'"]').focus();}});
+
+  const start=(location.hash||'').slice(1);
+  cur=W[start]?start:'tinto';
+  select(cur,{initial:true});
+  setTimeout(()=>document.body.classList.remove('load'),1400);
+})();
+</script>
+</body>
+</html>
